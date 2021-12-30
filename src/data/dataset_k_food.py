@@ -14,10 +14,10 @@ def remove_mac_keyword(data):
 
 # num_classes = 30
 class KFoodSampleDataset(Dataset):
-    def __init__(self, dataset_path):
+    def __init__(self, directory_path):
         super(KFoodSampleDataset, self).__init__()
-        self.label_list = remove_mac_keyword(sorted(os.listdir(dataset_path)))
-        self.file_list = file_io.get_all_file_path(dataset_path, 'jpg')
+        self.label_list = remove_mac_keyword(sorted(os.listdir(directory_path)))
+        self.file_list = file_io.get_all_file_path(directory_path, 'jpg')
         self.image_transforms = nn.Sequential(
             transforms.RandomResizedCrop(512),
             transforms.RandomHorizontalFlip(),
