@@ -8,6 +8,11 @@ def get_dataloader(config, mode='train'):
         dataset = k_food.KFoodSampleDataset(
             directory_path=config['{}_dataset'.format(mode)],
         )
+    elif dataset_type == 'KFoodDataset':
+        dataset = k_food.KFoodDataset(
+            directory_path=config['{}_dataset'.format(mode)],
+            mode=mode,
+        )
 
     dataloader = DataLoader(
         dataset=dataset,
