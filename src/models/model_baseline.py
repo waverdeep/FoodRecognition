@@ -29,12 +29,51 @@ class VGG16Combine(nn.Module):
         return out
 
 
+class ResNET50Combine(nn.Module):
+    def __init__(self, last_node=2048, num_classes=10):
+        super(ResNET50Combine, self).__init__()
+        self.feature_extract_network = nn.Sequential(
+            collections.OrderedDict(
+                [
+                    ("feature_extract_layer01", vision_model.resnet50(pretrained=True).conv1),
+                    ("feature_extract_layer02", vision_model.resnet50(pretrained=True).bn1),
+                    ("feature_extract_layer03", vision_model.resnet50(pretrained=True).relu),
+                    ("feature_extract_layer04", vision_model.resnet50(pretrained=True).maxpool),
+                    ("feature_extract_layer05", vision_model.resnet50(pretrained=True).layer1),
+                    ("feature_extract_layer06", vision_model.resnet50(pretrained=True).layer2),
+                    ("feature_extract_layer07", vision_model.resnet50(pretrained=True).layer3),
+                    ("feature_extract_layer08", vision_model.resnet50(pretrained=True).layer4),
+
+                ]
+            )
+        )
+        self.post_network = nn.Sequential(
+            collections.OrderedDict(
+                [
+                    ("feature_extract_layer09", vision_model.resnet50(pretrained=True).avgpool),
+                    ("flatten_layer", nn.Flatten()),
+                    ("post_layer", nn.Linear(last_node, num_classes)),
+                ]
+            )
+        )
+
+    def forward(self, x):
+        out = self.feature_extract_network(x)
+        out = self.post_network(out)
+        return out
+
+
 if __name__ == '__main__':
-    test_model = VGG16Combine()
     sample_data = torch.randn(8, 3, 512, 512)
+    test_model = ResNET50Combine()
     sample_out = test_model(sample_data)
-
-    print(sample_out)
-
-    _, predicted = torch.max(sample_out.data, 1)
-    print(predicted)
+    # print(test_model)
+    print(sample_out.size())
+    # test_model = VGG16Combine()
+    # sample_data = torch.randn(8, 3, 512, 512)
+    # sample_out = test_model(sample_data)
+    #
+    # print(sample_out)
+    #
+    # _, predicted = torch.max(sample_out.data, 1)
+    # print(predicted)
