@@ -63,12 +63,68 @@ class ResNET50Combine(nn.Module):
         return out
 
 
+class MobileNetV2Combine(nn.Module):
+    def __init__(self, last_node=327680, num_classes=10):
+        super(MobileNetV2Combine, self).__init__()
+        self.feature_extract_network = nn.Sequential(
+            collections.OrderedDict(
+                [
+                    ("feature_extract_layer", vision_model.mobilenet_v2(pretrained=True).features),
+                ]
+            )
+        )
+
+        self.post_network = nn.Sequential(
+            collections.OrderedDict(
+                [
+                    ("flatten_layer", nn.Flatten()),
+                    ("post_layer", nn.Linear(last_node, num_classes)),
+                ]
+            )
+        )
+
+    def forward(self, x):
+        out = self.feature_extract_network(x)
+        out = self.post_network(out)
+        return out
+
+
+class DenseNet121Combine(nn.Module):
+    def __init__(self, last_node=262144, num_classes=10):
+        super(DenseNet121Combine, self).__init__()
+        self.feature_extract_network = nn.Sequential(
+            collections.OrderedDict(
+                [
+                    ("feature_extract_layer", vision_model.densenet121(pretrained=True).features),
+                ]
+            )
+        )
+
+        self.post_network = nn.Sequential(
+            collections.OrderedDict(
+                [
+                    ("flatten_layer", nn.Flatten()),
+                    ("post_layer", nn.Linear(last_node, num_classes)),
+                ]
+            )
+        )
+
+    def forward(self, x):
+        out = self.feature_extract_network(x)
+        out = self.post_network(out)
+        return out
+
+
 if __name__ == '__main__':
     sample_data = torch.randn(8, 3, 512, 512)
-    test_model = ResNET50Combine()
-    sample_out = test_model(sample_data)
-    # print(test_model)
-    print(sample_out.size())
+    test_model = DenseNet121Combine()
+    print(test_model(sample_data).size())
+
+    # sample_data = torch.randn(8, 3, 512, 512)
+    # test_model = ResNET50Combine()
+    # sample_out = test_model(sample_data)
+    # # print(test_model)
+    # print(sample_out.size())
     # test_model = VGG16Combine()
     # sample_data = torch.randn(8, 3, 512, 512)
     # sample_out = test_model(sample_data)
