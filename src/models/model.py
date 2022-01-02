@@ -10,6 +10,21 @@ def load_model(config, checkpoint_path=None):
             last_node=config['last_node'],
             num_classes=config['num_classes'],
         )
+    elif model_name == 'ResNET50Combine':
+        model = model_baseline.ResNET50Combine(
+            last_node=config['last_node'],
+            num_classes=config['num_classes'],
+        )
+    elif model_name == 'MobileNetV2Combine':
+        model = model_baseline.MobileNetV2Combine(
+            last_node=config['last_node'],
+            num_classes=config['num_classes'],
+        )
+    elif model_name == 'DenseNet121Combine':
+        model = model_baseline.DenseNet121Combine(
+            last_node=config['last_node'],
+            num_classes=config['num_classes'],
+        )
 
     if config['model_checkpoint'] is not None:
         device = torch.device('cpu')
