@@ -23,7 +23,16 @@ python inference.py
 ```
 
 ## Quick Start Guide
+```
 
+```
+
+## Results
+| Pretrained Model | Accuracy | Loss  | epoch  |note                                    |
+|------------------|----------|-------|--------|-----------------------------------------|
+| VGG16            | 0.077    | 5.001 | -      |  early stop, the performance is terrible |
+| RESNET50         | 73.19    | 0.75  | 30     |
+| MOBILENET V2     | 77.65    | 0.82  | 60     |
 
 ## Built With
 * [waverDeep](https://github.com/waverDeep) - model architecture, setup train/test pipeline
