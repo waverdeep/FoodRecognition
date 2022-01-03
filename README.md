@@ -3,12 +3,11 @@
 
 ## Getting Started
 You can start on any computer that can learn deep learning.
-
+If you want to learn fast, use GPU-workstation.
 ### Prerequisites
 ```
 torch==1.9.0
 torchvision==0.9.0
-tqdm==4.46.1
 tensorboard==2.2.2
 tensorflow-gpu==2.2.0
 ```
@@ -19,15 +18,18 @@ python setup.py
 ```
 
 ## Running the tests
+```
+python inference.py
+```
+
+## Quick Start Guide
+
 
 ## Built With
-* [waverDeep](https://github.com/waverDeep) - buil model architecture, build train/test pipeline
+* [waverDeep](https://github.com/waverDeep) - model architecture, setup train/test pipeline
 
-
-## Contribution / 기여
-
+## Contribution
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us. / [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) 를 읽고 이에 맞추어 pull request 를 해주세요.
 
-## License / 라이센스
-
+## License
 This project is licensed under the MIT License - see the [LICENSE.md](https://gist.github.com/PurpleBooth/LICENSE.md) file for details / 이 프로젝트는 MIT 라이센스로 라이센스가 부여되어 있습니다. 자세한 내용은 LICENSE.md 파일을 참고하세요.
