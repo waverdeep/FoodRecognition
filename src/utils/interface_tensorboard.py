@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 tf.io.gfile = tb.compat.tensorflow_stub.io.gfile
 # console: tensorboard --logdir=runs --bind_all
+# tensorboard --logdir=runs --bind_all > /dev/null 2>&1 &
 
 
 # helper function to show an image
