@@ -25,6 +25,11 @@ def load_model(config, checkpoint_path=None):
             last_node=config['last_node'],
             num_classes=config['num_classes'],
         )
+    elif model_name == 'SqueezeNet10Combine':
+        model = model_baseline.SqueezeNet10Combine(
+            last_node=config['last_node'],
+            num_classes=config['num_classes'],
+        )
 
     if config['model_checkpoint'] is not None:
         device = torch.device('cpu')

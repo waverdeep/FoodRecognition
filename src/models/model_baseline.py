@@ -115,9 +115,34 @@ class DenseNet121Combine(nn.Module):
         return out
 
 
+class SqueezeNet10Combine(nn.Module):
+    def __init__(self, last_node=492032, num_classes=10):
+        super(SqueezeNet10Combine, self).__init__()
+        self.feature_extract_network = nn.Sequential(
+            collections.OrderedDict(
+                [
+                    ("feature_extract_layer", vision_model.squeezenet1_0(pretrained=True).features),
+                ]
+            )
+        )
+
+        self.post_network = nn.Sequential(
+            collections.OrderedDict(
+                [
+                    ("flatten_layer", nn.Flatten()),
+                    ("post_layer", nn.Linear(last_node, num_classes)),
+                ]
+            )
+        )
+
+    def forward(self, x):
+        out = self.feature_extract_network(x)
+        out = self.post_network(out)
+        return out
+
 if __name__ == '__main__':
     sample_data = torch.randn(8, 3, 512, 512)
-    test_model = DenseNet121Combine()
+    test_model = SqueezeNet10Combine()
     print(test_model(sample_data).size())
 
     # sample_data = torch.randn(8, 3, 512, 512)
