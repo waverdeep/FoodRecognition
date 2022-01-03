@@ -12,6 +12,7 @@ def get_dataloader(config, mode='train'):
         dataset = k_food.KFoodDataset(
             directory_path=config['{}_dataset'.format(mode)],
             mode=mode,
+            crop_size=config['crop_size'],
         )
 
     dataloader = DataLoader(
