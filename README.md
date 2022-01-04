@@ -17,6 +17,8 @@ tensorflow-gpu==2.2.0
 python setup.py
 ```
 
+## Dataset
+- [KOREA AI HUB DATASET](https://aihub.or.kr/aidata/13594) - 한국 음식 이미지 데이터셋 
 ## Running the tests
 ```
 python inference.py
@@ -26,13 +28,13 @@ python inference.py
 ```
 
 ```
-
-## Results
-| Pretrained Model | Accuracy | Loss  | epoch  |note                                    |
-|------------------|----------|-------|--------|-----------------------------------------|
-| VGG16            | 0.077    | 5.001 | -      |  early stop, the performance is terrible |
-| RESNET50         | 73.19    | 0.75  | 30     |
-| MOBILENET V2     | 77.65    | 0.82  | 60     |
+## Baseline Results
+| Pretrained Model | Accuracy | Loss  | epoch | note                                    |
+|------------------|----------|-------|-------|-----------------------------------------|
+| VGG16            | 0.077    | 5.001 | -     | early stop, the performance is terrible |
+| RESNET50         | 81.94    | 0.78  | 60    | cool                                    |
+| MOBILENET V2     | 79.60    | 0.78  | 120   | cool                                    |
+|  DENSENET121     | 35.06    | 63.73 | 15    | cheer up!                               |
 
 ## Built With
 * [waverDeep](https://github.com/waverDeep) - model architecture, setup train/test pipeline
