@@ -39,6 +39,11 @@ python inference.py
 ## Built With
 * [waverDeep](https://github.com/waverDeep) - model architecture, setup train/test pipeline
 
+## Computing resources
+| GPU RESOURCE              | RAM     | COUNT |
+|---------------------------|---------|-------|
+| NVIDIA TITAN RTX          | 24G     | 2     |
+| NVIDIA GeForce GTX 1080TI | 12G     | 1     |
 ## Contribution
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us. / [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) 를 읽고 이에 맞추어 pull request 를 해주세요.
 
