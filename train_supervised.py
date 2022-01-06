@@ -8,6 +8,8 @@ import src.models.model as models
 import argparse
 import json
 import torch
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 
 def main():
@@ -15,7 +17,7 @@ def main():
     parser = argparse.ArgumentParser(description='waverdeep - food recognition learning')
     # DISTRIBUTED 사용하기 위해서는 local rank를 argument로 받아야함. 그러면 torch.distributed.launch에서 알아서 해줌
     parser.add_argument('--configuration', required=False,
-                        default='./config/config_VGG16-Combine-training01-batch64.json') ### yaml로 변경할 예정
+                        default='./config/config_DenseNet121-Combine-training01-batch8.json') ### yaml로 변경할 예정
     args = parser.parse_args()
 
     train_tool.setup_seed(random_seed=777)
@@ -37,15 +39,11 @@ def main():
 
     # setup train/test dataloader
     train_loader, train_dataset = dataset.get_dataloader(config=config, mode='train')
-    test_loader, _ = dataset.get_dataloader(config=config, mode='test')
+    test_loader, test_dataset = dataset.get_dataloader(config=config, mode='test')
 
     # load model
     format_logger.info("load_model ...")
     model = models.load_model(config)
-
-    # if gpu available: load gpu
-    if config['use_cuda']:
-        model = model.cuda()
 
     # setup optimizer
     optimizer = optimizers.get_optimizer(model_parameter=model.parameters(), config=config)
@@ -54,6 +52,17 @@ def main():
     writer = tensorboard.set_tensorboard_writer(
         "{}-{}".format(config['tensorboard_writer_name'], now)
     )
+
+    # model inspect code
+    tensorboard.inspect_model(writer=writer, model=model, data=torch.randn(8, 3, 512, 512))
+
+    # watch dataset on tensorboard
+    tensorboard.add_image_on_tensorboard(writer, train_loader, desc='train')
+    tensorboard.add_image_on_tensorboard(writer, test_loader, desc='test')
+
+    # if gpu available: load gpu
+    if config['use_cuda']:
+        model = model.cuda()
 
     # print model information
     format_logger.info(">>> model_structure <<<")
@@ -70,7 +79,6 @@ def main():
         train(config, writer, epoch, model, train_loader, optimizer, format_logger)
         format_logger.info("start test ... [ {}/{} epoch ]".format(epoch, num_of_epoch))
         test_accuracy, test_loss = test(config, writer, epoch, model, test_loader, format_logger)
-        # speaker_tsne(config, model, train_dataset, epoch, writer)
 
         if test_accuracy > best_accuracy:
             best_accuracy = test_accuracy
@@ -87,15 +95,15 @@ def train(config, writer, epoch, model, train_loader, optimizer, format_logger):
     total_loss = 0.0
     total_accuracy = 0.0
     criterion = losses.set_criterion("CrossEntropyLoss")
-    for batch_idx, (input_data, targets) in enumerate(train_loader):
+    for batch_idx, (input_data, targets, detail_targets) in enumerate(train_loader):
         if config['use_cuda']:
             data = input_data.cuda()
-            targets = targets.cuda()
+            detail_targets = detail_targets.cuda()
         prediction = model(data)
-        loss = criterion(prediction, targets)
+        loss = criterion(prediction, detail_targets)
 
         _, predicted = torch.max(prediction.data, 1)
-        accuracy = torch.sum(predicted == targets)/len(targets)
+        accuracy = torch.sum(predicted == detail_targets)/len(detail_targets)
 
         model.zero_grad()
         loss.backward()
@@ -112,14 +120,14 @@ def train(config, writer, epoch, model, train_loader, optimizer, format_logger):
     writer.add_scalar('Loss/train', total_loss, (epoch - 1))
     writer.add_scalar('Accuracy/train', total_accuracy * 100, (epoch - 1))
 
-    conv = 0
-    for idx, layer in enumerate(model.modules()):
-        if isinstance(layer, torch.nn.Conv2d):
-            writer.add_histogram("Conv/weights-{}".format(conv), layer.weight,
-                                 global_step=(epoch - 1) * len(train_loader) + batch_idx)
-            writer.add_histogram("Conv/bias-{}".format(conv), layer.bias,
-                                 global_step=(epoch - 1) * len(train_loader) + batch_idx)
-            conv += 1
+    # conv = 0
+    # for idx, layer in enumerate(model.modules()):
+    #     if isinstance(layer, torch.nn.Conv2d):
+    #         writer.add_histogram("Conv/weights-{}".format(conv), layer.weight,
+    #                              global_step=(epoch - 1) * len(train_loader) + batch_idx)
+    #         writer.add_histogram("Conv/bias-{}".format(conv), layer.bias,
+    #                              global_step=(epoch - 1) * len(train_loader) + batch_idx)
+    #         conv += 1
 
 
 def test(config, writer, epoch, model, test_loader, format_logger):
@@ -128,15 +136,15 @@ def test(config, writer, epoch, model, test_loader, format_logger):
     total_accuracy = 0.0
     criterion = losses.set_criterion("CrossEntropyLoss")
     with torch.no_grad():
-        for batch_idx, (input_data, targets) in enumerate(test_loader):
+        for batch_idx, (input_data, targets, detail_targets) in enumerate(test_loader):
             if config['use_cuda']:
                 data = input_data.cuda()
-                targets = targets.cuda()
+                detail_targets = detail_targets.cuda()
             prediction = model(data)
-            loss = criterion(prediction, targets)
+            loss = criterion(prediction, detail_targets)
 
             _, predicted = torch.max(prediction.data, 1)
-            accuracy = torch.sum(predicted == targets) / len(targets)
+            accuracy = torch.sum(predicted == detail_targets) / len(detail_targets)
 
             total_loss += len(data) * loss
             total_accuracy += len(data) * accuracy
