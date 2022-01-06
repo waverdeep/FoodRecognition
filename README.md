@@ -29,21 +29,21 @@ python inference.py
 
 ```
 ## Baseline Results
-| Pretrained Model | Accuracy | Loss      | epoch | note                                   |
-|------------------|----------|-----------|-------|----------------------------------------|
+| Pretrained Model | Accuracy | Loss      | epoch | note                                    |
+|------------------|----------|-----------|-------|-----------------------------------------|
 | VGG16            | 0.077    | 5.001     | -     | early stop, the performance is terrible |
-| RESNET50         | 81.94    | 0.78      | 60    | early stop,                            |
-| MOBILENET V2     | 81.96    | 0.72      | 240   | cool                                   |
-|  DENSENET121     | 45.94    | 4.3338e+7 | 40    | early stop,                            |
+| RESNET50         | 81.94    | 0.78      | 60    | early stop,                             |
+| MOBILENET V2     | 81.96    | 0.72      | 240   | cool, stop training                     |
+|  DENSENET121     | 45.94    | 4.3338e+7 | 40    | early stop,                             |
 
 ## Built With
 * [waverDeep](https://github.com/waverDeep) - model architecture, setup train/test pipeline
 
 ## Computing resources
-| GPU RESOURCE              | RAM     | COUNT |
-|---------------------------|---------|-------|
-| NVIDIA TITAN RTX          | 24G     | 2     |
-| NVIDIA GeForce GTX 1080TI | 12G     | 1     |
+| GPU RESOURCE              | RAM     | COUNT | NOTE                 |
+|---------------------------|---------|-------|----------------------|
+| NVIDIA TITAN RTX          | 24G     | 2     | training             |
+| NVIDIA GeForce GTX 1080TI | 12G     | 1     | develop, test or etc |
 ## Contribution
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us. / [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) 를 읽고 이에 맞추어 pull request 를 해주세요.
 
