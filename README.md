@@ -29,12 +29,12 @@ python inference.py
 
 ```
 ## Baseline Results
-| Pretrained Model | Accuracy | Loss  | epoch | note                                    |
-|------------------|----------|-------|-------|-----------------------------------------|
-| VGG16            | 0.077    | 5.001 | -     | early stop, the performance is terrible |
-| RESNET50         | 81.94    | 0.78  | 60    | cool                                    |
-| MOBILENET V2     | 79.60    | 0.78  | 120   | cool                                    |
-|  DENSENET121     | 35.06    | 63.73 | 15    | cheer up!                               |
+| Pretrained Model | Accuracy | Loss      | epoch | note                                   |
+|------------------|----------|-----------|-------|----------------------------------------|
+| VGG16            | 0.077    | 5.001     | -     | early stop, the performance is terrible |
+| RESNET50         | 81.94    | 0.78      | 60    | early stop,                            |
+| MOBILENET V2     | 81.96    | 0.72      | 240   | cool                                   |
+|  DENSENET121     | 45.94    | 4.3338e+7 | 40    | early stop,                            |
 
 ## Built With
 * [waverDeep](https://github.com/waverDeep) - model architecture, setup train/test pipeline
