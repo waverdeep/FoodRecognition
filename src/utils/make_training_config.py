@@ -1,6 +1,6 @@
 import json
 
-name = 'VGG16-Combine-training01-batch64'
+name = 'DenseNet121-Combine-training01-batch8'
 
 configuration = {
     # definition
@@ -10,16 +10,17 @@ configuration = {
     "batch_size": 8,
     "learning_rate": 0.001,
     # dataset
-    "dataset_type": "KFoodSampleDataset",
-    "train_dataset": "./dataset/sample_food_data",
-    "test_dataset": "./dataset/sample_food_data_test",
-    "num_workers": 16,
+    "dataset_type": "KFoodDataset",
+    "train_dataset": "./dataset/kfood-train.txt",
+    "test_dataset": "./dataset/kfood-test.txt",
+    "num_workers": 8,
     "dataset_shuffle": True,
-    "pin_memory": True,
+    "pin_memory": False,
+    "crop_size": 512,
     # model
-    "model_name": "VGG16Combine",
-    'last_node': 131072,
-    'num_classes': 30,
+    "model_name": "DenseNet121Combine",
+    'last_node': 262144,
+    'num_classes': 150,
     'model_checkpoint': None,
     # optimizer
     "optimizer_name": "Adam",
