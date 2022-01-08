@@ -9,7 +9,7 @@ import argparse
 import json
 import torch
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
 
 def main():
@@ -17,7 +17,7 @@ def main():
     parser = argparse.ArgumentParser(description='waverdeep - food recognition learning')
     # DISTRIBUTED 사용하기 위해서는 local rank를 argument로 받아야함. 그러면 torch.distributed.launch에서 알아서 해줌
     parser.add_argument('--configuration', required=False,
-                        default='./config/config_DenseNet121-Combine-training01-batch8.json') ### yaml로 변경할 예정
+                        default='./config/config_ResNet152-Combine-training01-batch8.json') ### yaml로 변경할 예정
     args = parser.parse_args()
 
     train_tool.setup_seed(random_seed=777)
@@ -72,15 +72,19 @@ def main():
 
     # start training ....
     best_accuracy = 0.0
+    best_loss = None
     num_of_epoch = config['epoch']
     for epoch in range(num_of_epoch):
         epoch = epoch + 1
         format_logger.info("start train ... [ {}/{} epoch ]".format(epoch, num_of_epoch))
-        train(config, writer, epoch, model, train_loader, optimizer, format_logger)
+        train_accuracy, train_loss = train(config, writer, epoch, model, train_loader, optimizer, format_logger)
         format_logger.info("start test ... [ {}/{} epoch ]".format(epoch, num_of_epoch))
         test_accuracy, test_loss = test(config, writer, epoch, model, test_loader, format_logger)
 
-        if test_accuracy > best_accuracy:
+        if best_loss in None:
+            best_loss = test_loss
+
+        if test_accuracy > best_accuracy and test_loss <= best_loss:
             best_accuracy = test_accuracy
             best_epoch = epoch
             train_tool.save_checkpoint(config=config, model=model, optimizer=optimizer,
@@ -119,6 +123,7 @@ def train(config, writer, epoch, model, train_loader, optimizer, format_logger):
 
     writer.add_scalar('Loss/train', total_loss, (epoch - 1))
     writer.add_scalar('Accuracy/train', total_accuracy * 100, (epoch - 1))
+    return total_accuracy, total_loss
 
     # conv = 0
     # for idx, layer in enumerate(model.modules()):
