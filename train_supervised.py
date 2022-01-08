@@ -81,7 +81,7 @@ def main():
         format_logger.info("start test ... [ {}/{} epoch ]".format(epoch, num_of_epoch))
         test_accuracy, test_loss = test(config, writer, epoch, model, test_loader, format_logger)
 
-        if best_loss in None:
+        if best_loss is None:
             best_loss = test_loss
 
         if test_accuracy > best_accuracy and test_loss <= best_loss:
