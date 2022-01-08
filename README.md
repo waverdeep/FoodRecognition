@@ -33,8 +33,10 @@ python inference.py
 |------------------|----------|-----------|-------|-----------------------------------------|
 | VGG16            | 0.077    | 5.001     | -     | early stop, the performance is terrible |
 | RESNET50         | 81.94    | 0.78      | 60    | early stop,                             |
+| RESNET152        |          |           |       | comming soon!                           |
 | MOBILENET V2     | 81.96    | 0.72      | 240   | cool, stop training                     |
-|  DENSENET121     | 45.94    | 4.3338e+7 | 40    | early stop,                             |
+| DENSENET121      | 45.94    | 4.3338e+7 | 40    | early stop,                             |
+
 
 ## Built With
 * [waverDeep](https://github.com/waverDeep) - model architecture, setup train/test pipeline
@@ -44,8 +46,6 @@ python inference.py
 |---------------------------|---------|-------|----------------------|
 | NVIDIA TITAN RTX          | 24G     | 2     | training             |
 | NVIDIA GeForce GTX 1080TI | 12G     | 1     | develop, test or etc |
-## Contribution
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us. / [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) 를 읽고 이에 맞추어 pull request 를 해주세요.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](https://gist.github.com/PurpleBooth/LICENSE.md) file for details / 이 프로젝트는 MIT 라이센스로 라이센스가 부여되어 있습니다. 자세한 내용은 LICENSE.md 파일을 참고하세요.
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/waverDeep/FoodRecognition/blob/main/LICENSE) file for details
