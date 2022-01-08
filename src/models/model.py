@@ -15,6 +15,16 @@ def load_model(config, checkpoint_path=None):
             last_node=config['last_node'],
             num_classes=config['num_classes'],
         )
+    elif model_name == 'ResNET152Combine':
+        model = model_baseline.ResNET152Combine(
+            last_node=config['last_node'],
+            num_classes=config['num_classes'],
+        )
+    elif model_name == 'WideResNET50_2Combine':
+        model = model_baseline.WideResNET50_2Combine(
+            last_node=config['last_node'],
+            num_classes=config['num_classes'],
+        )
     elif model_name == 'MobileNetV2Combine':
         model = model_baseline.MobileNetV2Combine(
             last_node=config['last_node'],
