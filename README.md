@@ -33,7 +33,8 @@ python inference.py
 |------------------|----------|-----------|-------|-----------------------------------------|
 | VGG16            | 0.077    | 5.001     | -     | early stop, the performance is terrible |
 | RESNET50         | 81.94    | 0.78      | 60    | early stop,                             |
-| RESNET152        |          |           |       | comming soon!                           |
+| RESNET152        | 73.77    | 0.973     | 20    | comming soon!                           |
+| WIDERESNET50_2   | 72.52    | 0.998     | 20    | comming soon!                           |
 | MOBILENET V2     | 81.96    | 0.72      | 240   | cool, stop training                     |
 | DENSENET121      | 45.94    | 4.3338e+7 | 40    | early stop,                             |
 
