@@ -208,6 +208,7 @@ class SqueezeNet10Combine(nn.Module):
         out = self.post_network(out)
         return out
 
+
 if __name__ == '__main__':
     sample_data = torch.randn(8, 3, 512, 512)
     test_model = WideResNET50_2Combine()

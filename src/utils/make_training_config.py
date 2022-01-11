@@ -1,13 +1,13 @@
 import json
 
-name = 'DenseNet121-Combine-training01-batch8'
+name = 'Squeezenet10-Combine-training01-batch8'
 
 configuration = {
     # definition
     "log_filename": "./log/{}".format(name),
     "use_cuda": True,
     "epoch": 800,
-    "batch_size": 8,
+    "batch_size": 64,
     "learning_rate": 0.001,
     # dataset
     "dataset_type": "KFoodDataset",
@@ -18,8 +18,8 @@ configuration = {
     "pin_memory": False,
     "crop_size": 512,
     # model
-    "model_name": "DenseNet121Combine",
-    'last_node': 262144,
+    "model_name": "SqueezeNet10Combine",
+    'last_node': 492032,
     'num_classes': 150,
     'model_checkpoint': None,
     # optimizer
