@@ -1,4 +1,4 @@
-# FoodRecognition/ Multi-label Food Classification
+# Food Recognition/ Ingredient Recognition
 사진안에 있는 음식이 어떤 음식인지 인식할수 있는 인공지능 모델 개발
 
 ## Getting Started
