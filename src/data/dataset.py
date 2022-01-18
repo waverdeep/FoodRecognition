@@ -1,4 +1,5 @@
 import src.data.dataset_k_food as k_food
+import src.data.dataset_ingredient as ingredient
 from torch.utils.data import Dataset, DataLoader
 
 def get_dataloader(config, mode='train'):
@@ -10,6 +11,12 @@ def get_dataloader(config, mode='train'):
         )
     elif dataset_type == 'KFoodDataset':
         dataset = k_food.KFoodDataset(
+            directory_path=config['{}_dataset'.format(mode)],
+            mode=mode,
+            crop_size=config['crop_size'],
+        )
+    elif dataset_type == 'IngredientDataset':
+        dataset = ingredient.IngredientDataset(
             directory_path=config['{}_dataset'.format(mode)],
             mode=mode,
             crop_size=config['crop_size'],
