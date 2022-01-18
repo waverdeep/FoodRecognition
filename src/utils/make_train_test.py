@@ -13,6 +13,8 @@ def convert_jpg(directory_path):
     file_list += file_io.get_all_file_path(directory_path, 'bmp')
 
     for file in tqdm(file_list, desc="convert images ... "):
+        if 'jpg' in file:
+            pass
         im = Image.open(file).convert('RGB')
         temp = file.split('.')[:-1]
         temp = '.'.join(temp)
@@ -28,10 +30,10 @@ def make_train_test_dataset(directory_path):
     # file_list += file_io.get_all_file_path(directory_path, 'jpeg')
     # file_list += file_io.get_all_file_path(directory_path, 'bmp')
 
-    file_io.make_list2txt(file_list, './dataset/kfood-list.txt')
-    train_list, test_list = train_test_split(file_list, test_size=0.25)
-    file_io.make_list2txt(train_list, './dataset/kfood-train.txt')
-    file_io.make_list2txt(test_list, './dataset/kfood-test.txt')
+    file_io.make_list2txt(file_list, './dataset/FruitandVegs-validation.txt')
+    # train_list, test_list = train_test_split(file_list, test_size=0.25)
+    # file_io.make_list2txt(train_list, './dataset/kfood-train.txt')
+    # file_io.make_list2txt(test_list, './dataset/kfood-test.txt')
 
 
 def make_label(data_list, index=4):
