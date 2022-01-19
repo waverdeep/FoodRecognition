@@ -44,14 +44,14 @@ python train_supervised.py
 
 
 ## Baseline Results - Ingredient Recognition
-| Pretrained Model | Accuracy | Loss | epoch | note          |
-|------------------|----------|------|-------|---------------|
-| VGG16            |          |      |       | comming soon! |
-| RESNET50         |          |      |       | comming soon! |
-| RESNET152        | 45.01    | 1.96 | 7     | training now! |
-| WIDERESNET50_2   |          |      | -     | comming soon! |
-| MOBILENET V2     |          |      | -     | comming soon! |
-| DENSENET121      |          |      | -     | comming soon! |
+| Pretrained Model | Accuracy | Loss | epoch | note                 |
+|------------------|----------|------|-------|----------------------|
+| VGG16            |          |      |       | comming soon!        |
+| RESNET50         |          |      |       | comming soon!        |
+| RESNET152        | 95.44    | 0.68 | 250   | fruits and vegs only |
+| WIDERESNET50_2   |          |      | -     | comming soon!        |
+| MOBILENET V2     |          |      | -     | comming soon!        |
+| DENSENET121      |          |      | -     | comming soon!        |
 
 ## Built With
 * [waverDeep](https://github.com/waverDeep) - model architecture, setup train/test pipeline
