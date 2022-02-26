@@ -1,8 +1,9 @@
 import collections
 import torch
 import torch.nn as nn
+import torchvision.models
 import torchvision.models as vision_model
-
+from efficientnet_pytorch import EfficientNet
 
 class VGG16Combine(nn.Module):
     def __init__(self, last_node=131072, num_classes=10):
@@ -84,7 +85,8 @@ class ResNET152Combine(nn.Module):
         self.post_network = nn.Sequential(
             collections.OrderedDict(
                 [
-                    ("feature_extract_layer09", vision_model.resnet50(pretrained=True).avgpool),
+                    ("feature_extract_layer09", vision_model.resnet152(pretrained=True).avgpool),
+                    # ("feature_extract_layer09", vision_model.resnet50(pretrained=True).avgpool),
                     ("flatten_layer", nn.Flatten()),
                     ("post_layer", nn.Linear(last_node, num_classes)),
                 ]
@@ -209,11 +211,30 @@ class SqueezeNet10Combine(nn.Module):
         return out
 
 
-if __name__ == '__main__':
-    sample_data = torch.randn(8, 3, 512, 512)
-    test_model = WideResNET50_2Combine()
-    print(test_model(sample_data).size())
+class EfficientNetB4Combine(nn.Module):
+    def __init__(self, last_node=458752, num_classes=10):
+        super(EfficientNetB4Combine, self).__init__()
+        self.feature_extract_network = EfficientNet.from_pretrained('efficientnet-b4')
 
+        self.post_network = nn.Sequential(
+            collections.OrderedDict(
+                [
+                    ("flatten_layer", nn.Flatten()),
+                    ("post_layer", nn.Linear(last_node, num_classes)),
+                ]
+            )
+        )
+
+    def forward(self, x):
+        out = self.feature_extract_network.extract_features(x)
+        out = self.post_network(out)
+        return out
+
+
+if __name__ == '__main__':
+    sample_data = torch.randn(2, 3, 512, 512).cuda()
+    test_model = EfficientNetB4Combine().cuda()
+    print(test_model(sample_data).size())
     # sample_data = torch.randn(8, 3, 512, 512)
     # test_model = ResNET50Combine()
     # sample_out = test_model(sample_data)

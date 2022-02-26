@@ -4,42 +4,28 @@ import torch
 
 def load_model(config, checkpoint_path=None):
     model_name = config['model_name']
-    model = None
+    network = None
     if model_name == 'VGG16Combine':
-        model = model_baseline.VGG16Combine(
-            last_node=config['last_node'],
-            num_classes=config['num_classes'],
-        )
+        network = model_baseline.VGG16Combine
     elif model_name == 'ResNET50Combine':
-        model = model_baseline.ResNET50Combine(
-            last_node=config['last_node'],
-            num_classes=config['num_classes'],
-        )
+        network = model_baseline.ResNET50Combine
     elif model_name == 'ResNET152Combine':
-        model = model_baseline.ResNET152Combine(
-            last_node=config['last_node'],
-            num_classes=config['num_classes'],
-        )
+        network = model_baseline.ResNET152Combine
     elif model_name == 'WideResNET50_2Combine':
-        model = model_baseline.WideResNET50_2Combine(
-            last_node=config['last_node'],
-            num_classes=config['num_classes'],
-        )
+        network = model_baseline.WideResNET50_2Combine
     elif model_name == 'MobileNetV2Combine':
-        model = model_baseline.MobileNetV2Combine(
-            last_node=config['last_node'],
-            num_classes=config['num_classes'],
-        )
+        network = model_baseline.MobileNetV2Combine
     elif model_name == 'DenseNet121Combine':
-        model = model_baseline.DenseNet121Combine(
-            last_node=config['last_node'],
-            num_classes=config['num_classes'],
-        )
+        network = model_baseline.DenseNet121Combine
     elif model_name == 'SqueezeNet10Combine':
-        model = model_baseline.SqueezeNet10Combine(
-            last_node=config['last_node'],
-            num_classes=config['num_classes'],
-        )
+        network = model_baseline.SqueezeNet10Combine
+    elif model_name == 'EfficientNetB4Combine':
+        network = model_baseline.EfficientNetB4Combine
+
+    model = network(
+        last_node=config['last_node'],
+        num_classes=config['num_classes'],
+    )
 
     if config['model_checkpoint'] is not None:
         device = torch.device('cpu')
