@@ -1,26 +1,26 @@
 import json
 
-name = 'Squeezenet10-Combine-training01-batch8'
+name = 'ingredient-ResNet152-Combine-training01-batch8'
 
 configuration = {
     # definition
     "log_filename": "./log/{}".format(name),
     "use_cuda": True,
     "epoch": 800,
-    "batch_size": 64,
+    "batch_size": 8,
     "learning_rate": 0.001,
     # dataset
-    "dataset_type": "KFoodDataset",
-    "train_dataset": "./dataset/kfood-train.txt",
-    "test_dataset": "./dataset/kfood-test.txt",
+    "dataset_type": "IngredientDataset",
+    "train_dataset": "./dataset/FruitandVegs-train.txt",
+    "test_dataset": "./dataset/FruitandVegs-validation.txt",
     "num_workers": 8,
     "dataset_shuffle": True,
     "pin_memory": False,
     "crop_size": 512,
     # model
-    "model_name": "SqueezeNet10Combine",
-    'last_node': 492032,
-    'num_classes': 150,
+    "model_name": "ResNET152Combine",
+    'last_node': 2048,
+    'num_classes': 36,
     'model_checkpoint': None,
     # optimizer
     "optimizer_name": "Adam",
