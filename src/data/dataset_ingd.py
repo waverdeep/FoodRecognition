@@ -9,10 +9,10 @@ import PIL
 
 
 # num_classes = 36
-class IngredientDataset(Dataset):
+class INGDDataset(Dataset):
     def __init__(self, directory_path, mode='train', crop_size=512):
-        super(IngredientDataset, self).__init__()
-        self.label_list = file_io.read_txt2list('./dataset/FV-label.txt')
+        super(INGDDataset, self).__init__()
+        self.label_list = file_io.read_txt2list('./dataset/INGD_V1-category.txt')
         self.file_list = file_io.read_txt2list(directory_path)
         if mode == 'train':
             self.image_transforms = transforms.Compose(
@@ -39,9 +39,9 @@ class IngredientDataset(Dataset):
         return len(self.file_list)
 
     def __getitem__(self, x):
-        # './dataset/FruitandVegs/train/apple/Img_000_0000.jpg'
+        # './dataset/INGD_V1/corn/194.jpg'
         file = self.file_list[x]
-        label = file.split('/')[4]
+        label = file.split('/')[3]
         label = label.lower()
         label = label.replace(' ', "_")
         label = self.label_list.index(label)
