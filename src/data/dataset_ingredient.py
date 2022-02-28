@@ -12,7 +12,7 @@ import PIL
 class IngredientDataset(Dataset):
     def __init__(self, directory_path, mode='train', crop_size=512):
         super(IngredientDataset, self).__init__()
-        self.label_list = file_io.read_txt2list('./dataset/FruitandVegsLabel.txt')
+        self.label_list = file_io.read_txt2list('./dataset/FV-label.txt')
         self.file_list = file_io.read_txt2list(directory_path)
         if mode == 'train':
             self.image_transforms = transforms.Compose(
@@ -41,7 +41,10 @@ class IngredientDataset(Dataset):
     def __getitem__(self, x):
         # './dataset/FruitandVegs/train/apple/Img_000_0000.jpg'
         file = self.file_list[x]
-        label = self.label_list.index(file.split('/')[4])
+        label = file.split('/')[4]
+        label = label.lower()
+        label = label.replace(' ', "_")
+        label = self.label_list.index(label)
         # have issue - png 4channel cannot load only supported 3 dimension
         data = PIL.Image.open(file)
         # data = data.type('torch.FloatTensor')
