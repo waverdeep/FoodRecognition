@@ -8,11 +8,11 @@ import torchvision.transforms as transforms
 import PIL
 
 
-# num_classes = 36
+# num_classes = 256
 class INGDDataset(Dataset):
     def __init__(self, directory_path, mode='train', crop_size=512):
         super(INGDDataset, self).__init__()
-        self.label_list = file_io.read_txt2list('./dataset/INGD_V1-category.txt')
+        self.label_list = file_io.read_txt2list('./dataset/INGD_V2.txt')
         self.file_list = file_io.read_txt2list(directory_path)
         if mode == 'train':
             self.image_transforms = transforms.Compose(

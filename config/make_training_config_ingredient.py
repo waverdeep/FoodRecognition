@@ -8,9 +8,9 @@ configuration = {
     "learning_rate": 0.001,
     # dataset
     "dataset_type": "INGDDataset",
-    'dataset_name': 'INGD_V1',
-    "train_dataset": "./dataset/INGD_V1-train.txt",
-    "test_dataset": "./dataset/INGD_V1-test.txt",
+    'dataset_name': 'INGD_V2',
+    "train_dataset": "./dataset/INGD_V2-train.txt",
+    "test_dataset": "./dataset/INGD_V2-test.txt",
     "num_workers": 8,
     "dataset_shuffle": True,
     "pin_memory": False,
@@ -18,7 +18,7 @@ configuration = {
     # model
     "model_name": "ResNET152Combine",
     'last_node': 2048,
-    'num_classes': 58,
+    'num_classes': 256,
     'model_checkpoint': None,
     # optimizer
     "optimizer_name": "Adam",
