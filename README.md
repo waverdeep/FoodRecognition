@@ -56,10 +56,10 @@ python train_supervised.py
 | DENSENET121      | -        | -    | -     | poor accuracy        | INGD_V1 (private)                | 58           |
 
 ## Stage2 Result - Ingredient Recognition
-| Pretrained Model | Accuracy | Loss | epoch | note            | dataset           | num of class |
-|------------------|----------|------|-------|-----------------|-------------------|--------------|
-| RESNET152        |          |      |       | comming soon!   | INGD_V2 (private) | 238          |
-| MOBILENET V2     |          |      |       | comming soon!   | INGD_V2 (private) | 238          |
+| Pretrained Model | Accuracy | Loss | epoch | note          | dataset           | num of class |
+|------------------|----------|------|-------|---------------|-------------------|--------------|
+| RESNET152        | 83.03    | 0.71 | 40    |               | INGD_V2 (private) | 238          |
+| MOBILENET V2     |          |      |       | comming soon! | INGD_V2 (private) | 238          |
 
 
 
