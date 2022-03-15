@@ -232,15 +232,16 @@ class EfficientNetB4Combine(nn.Module):
 
 
 if __name__ == '__main__':
-    sample_data = torch.randn(2, 3, 512, 512).cuda()
-    test_model = EfficientNetB4Combine().cuda()
-    print(test_model(sample_data).size())
+    # sample_data = torch.randn(2, 3, 512, 512).cuda()
+    # test_model = EfficientNetB4Combine().cuda()
+    # print(test_model(sample_data).size())
     # sample_data = torch.randn(8, 3, 512, 512)
     # test_model = ResNET50Combine()
     # sample_out = test_model(sample_data)
     # # print(test_model)
     # print(sample_out.size())
     # test_model = VGG16Combine()
+    # print(test_model)
     # sample_data = torch.randn(8, 3, 512, 512)
     # sample_out = test_model(sample_data)
     #
@@ -248,3 +249,12 @@ if __name__ == '__main__':
     #
     # _, predicted = torch.max(sample_out.data, 1)
     # print(predicted)
+
+    model = ResNET152Combine(num_classes=256)
+    checkpoint = torch.load('../../checkpoint/ResNET152Combine-INGD_V2-model-best-2022_3_1_6_47_27.pt', map_location='cpu')
+    model.load_state_dict(checkpoint['model_state_dict'])
+    model.eval()
+    sample_data = torch.randn(2, 3, 512, 512)
+
+    traced_script_module = torch.jit.trace(model, sample_data)
+    traced_script_module.save('../../traced_res152_model.pt')
