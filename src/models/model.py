@@ -28,8 +28,9 @@ def load_model(config, checkpoint_path=None):
     )
 
     if config['model_checkpoint'] is not None:
+        print('>>> load checkpoints ...')
         device = torch.device('cpu')
-        checkpoint = torch.load(checkpoint_path, map_location=device)
+        checkpoint = torch.load(config['model_checkpoint'], map_location=device)
         model.load_state_dict(checkpoint['model_state_dict'])
 
     return model
