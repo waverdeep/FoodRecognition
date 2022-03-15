@@ -21,7 +21,7 @@ class INGDDataset(Dataset):
                     transforms.RandomHorizontalFlip(),
                     transforms.RandomRotation(degrees=(0, 360)),
                     transforms.ToTensor(),
-                    # transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
+                    transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
 
                 ]
             )
@@ -31,7 +31,7 @@ class INGDDataset(Dataset):
                     transforms.Resize(640),
                     transforms.CenterCrop(crop_size),
                     transforms.ToTensor(),
-                    # transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
+                    transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
                 ]
             )
 
@@ -49,4 +49,4 @@ class INGDDataset(Dataset):
         data = PIL.Image.open(file)
         # data = data.type('torch.FloatTensor')
         data = self.image_transforms(data)
-        return data, label, label
+        return data, label

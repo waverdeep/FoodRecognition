@@ -39,7 +39,7 @@ def close_tensorboard_writer(writer):
 
 def add_image_on_tensorboard(writer, dataloader, desc="dataset"):
     tdataiter = iter(dataloader)
-    images, labels, detail_labels = tdataiter.next()
+    images, labels = tdataiter.next()
     img_grid = torchvision.utils.make_grid(images)
     writer.add_image('{}/images of {}'.format(desc, desc), img_grid)
 
