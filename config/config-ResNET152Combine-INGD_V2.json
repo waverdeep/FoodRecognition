@@ -1,0 +1,31 @@
+{
+	"use_cuda": true,
+	"epoch": 800,
+	"batch_size": 16,
+	"learning_rate": 0.001,
+	"dataset_type": "INGDDataset",
+	"dataset_name": "INGD_V2",
+	"train_dataset": "./dataset/INGD_V2-train.txt",
+	"test_dataset": "./dataset/INGD_V2-test.txt",
+	"num_workers": 8,
+	"dataset_shuffle": true,
+	"pin_memory": false,
+	"crop_size": 512,
+	"model_name": "ResNET152Combine",
+	"last_node": 2048,
+	"num_classes": 256,
+	"model_checkpoint": "./checkpoint/ResNET152Combine-INGD_V2-model-best-2022_3_1_6_47_27.pt",
+	"optimizer_name": "Adam",
+	"weight_decay": 0,
+	"eps": 1e-08,
+	"amsgrad": false,
+	"betas": [
+		0.9,
+		0.999
+	],
+	"checkpoint_save_directory_path": "./checkpoint",
+	"load_checkpoint": "",
+	"log_filename": "./log/ResNET152Combine-INGD_V2",
+	"tensorboard_writer_name": "./runs/ResNET152Combine-INGD_V2",
+	"checkpoint_file_name": "ResNET152Combine-INGD_V2"
+}

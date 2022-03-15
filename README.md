@@ -44,7 +44,7 @@ out_data = test_model(sample_data)
 ``` 
  - pytorch
 ```
-python inference.py --config configure_name.json --image image_name.jpg --label labels.jpg
+python inference.py --config configure_name.json --image image_name.jpg --label labels.txt
 ```
 
 
