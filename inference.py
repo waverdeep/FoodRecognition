@@ -21,6 +21,7 @@ def main():
     parser.add_argument("--configuration", required=False,
                         default='./config/config-ResNET152Combine-INGD_V2.json',)
     parser.add_argument("--image", required=False, default='./dataset/INGD_V2/무말랭이/222.jpg')
+    parser.add_argument('--label', required=False, default='./config/labels.txt')
     args = parser.parse_args()
 
     with open(args.configuration, 'r') as configuration:
@@ -32,7 +33,7 @@ def main():
     print(">> load image ...")
     input_data = PIL.Image.open(args.image)
     print(">> load label list ... ")
-    label_list = file_io.read_txt2list('./dataset/INGD_V2.txt')
+    label_list = file_io.read_txt2list(args.label)
 
     if config['use_cuda']:
         model = model.cuda()
