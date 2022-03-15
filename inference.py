@@ -20,8 +20,8 @@ def main():
     parser = argparse.ArgumentParser(description='waverdeep - Food Recognition')
     parser.add_argument("--configuration", required=False,
                         default='./config/config-ResNET152Combine-INGD_V2.json',)
-    parser.add_argument("--image", required=False, default='./dataset/INGD_V2/무말랭이/222.jpg')
-    parser.add_argument('--label', required=False, default='./config/labels.txt')
+    parser.add_argument("--image", required=False, default='./dataset/INGD_V2/마늘/24.jpg')
+    parser.add_argument('--label', required=False, default='./dataset/INGD_V2.txt')
     args = parser.parse_args()
 
     with open(args.configuration, 'r') as configuration:
