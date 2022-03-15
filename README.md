@@ -5,31 +5,48 @@
 ## Getting Started
 You can start on any computer that can learn deep learning.
 If you want to learn fast, use GPU-workstation.
-### Prerequisites
+### Training Prerequisites
 ```
-torch==1.9.0
-torchvision==0.9.0
-tensorboard==2.2.2
-tensorflow-gpu==2.2.0
-```
-
-### Installing
-```
-python setup.py
+torch~=1.9.1
+torchvision~=0.10.1
+Pillow~=7.0.0
+natsort~=7.0.1
+sklearn~=0.0
+scikit-learn~=0.24.2
+tqdm~=4.42.0
+numpy~=1.18.1
+tensorflow~=2.2.0
+tensorflow-gpu~=2.2.0
+tensorboard~=2.7.0
+matplotlib~=3.1.2
 ```
 
 ## Dataset
 - [KOREA AI HUB DATASET](https://aihub.or.kr/aidata/13594) - 한국 음식 이미지 데이터셋 
 - [Fruit and Vegetable Image Dataset](https://www.kaggle.com/kritikseth/fruit-and-vegetable-image-recognition) - 과일과 채소 데이터셋
 - [Vegetable Image Dataset](https://www.kaggle.com/misrakahmed/vegetable-image-dataset) - 채소 데이터셋
-- Private Dataset
+- Private Dataset (INGD_V1, INGD_V2)
 
-## Running the tests
-```
-python inference.py
-```
+## Support TorchScript
+ - [Introduction to TorchScript](https://pytorch.org/tutorials/beginner/Intro_to_TorchScript_tutorial.html) - TorchScript 소개 및 튜토리얼
+ - [Deep Java Library Pytorch](https://docs.djl.ai/jupyter/load_pytorch_model.html) - Pytorch용 Deep Java Library Engine Provider 소개 및 튜토리얼
 
-## Quick Start Guide
+## Who to get Checkpoint?
+ - [Resquest JIT Traced Checkpoint](https://forms.gle/AqxwTx6owSvMk6Su9)
+ - [Request Pytorch Checkpoint](https://forms.gle/T18o5EKRERcDe2tR6)
+
+## Running the test
+ - Use TorchScript
+```
+test_model = torch.jit.load('./jit_traced_torch_model_name.pt', map_location='cpu')
+sample_data = torch.randn(1, 3, 512, 512) # (1, channel, width, height)
+print(test_model(sample_data))
+``` 
+ - pytorch
+
+
+
+## Quick Start Guide (train)
 ```
 python train_supervised.py
 ```
