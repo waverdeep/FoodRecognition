@@ -7,6 +7,10 @@ You can start on any computer that can learn deep learning.
 If you want to learn fast, use GPU-workstation.
 ### Training Prerequisites
 ```
+python version == 3.6.9
+```
+
+```
 torch~=1.9.1
 torchvision~=0.10.1
 Pillow~=7.0.0
@@ -21,6 +25,36 @@ tensorboard~=2.7.0
 matplotlib~=3.1.2
 ```
 
+```
+pip install -r requirements.txt
+```
+
+## How can I request Checkpoint?
+If you respond to GoogleForms, we will share the download link within a few days. 
+Currently, the shared checkpoint is ResNet152.
+ - [Resquest JIT Traced Checkpoint](https://forms.gle/AqxwTx6owSvMk6Su9)
+ - [Request Pytorch Checkpoint](https://forms.gle/T18o5EKRERcDe2tR6)
+
+## Running the Test
+ - Use TorchScript
+```
+test_model = torch.jit.load('./jit_traced_torch_model_name.pt', map_location='cpu')
+sample_data = torch.randn(1, 3, 512, 512) # (1, channel, width, height)
+out_data = test_model(sample_data)
+``` 
+ - pytorch
+```
+python inference.py --config configure_name.json --image image_name.jpg --label labels.jpg
+```
+
+
+## Quick Start Training Guide
+1. You need to create a configuration first.
+2. Then execute the following command:
+```
+python train.py --configuration configuration_name.json
+```
+
 ## Dataset
 - [KOREA AI HUB DATASET](https://aihub.or.kr/aidata/13594) - 한국 음식 이미지 데이터셋 
 - [Fruit and Vegetable Image Dataset](https://www.kaggle.com/kritikseth/fruit-and-vegetable-image-recognition) - 과일과 채소 데이터셋
@@ -31,25 +65,7 @@ matplotlib~=3.1.2
  - [Introduction to TorchScript](https://pytorch.org/tutorials/beginner/Intro_to_TorchScript_tutorial.html) - TorchScript 소개 및 튜토리얼
  - [Deep Java Library Pytorch](https://docs.djl.ai/jupyter/load_pytorch_model.html) - Pytorch용 Deep Java Library Engine Provider 소개 및 튜토리얼
 
-## Who to get Checkpoint?
- - [Resquest JIT Traced Checkpoint](https://forms.gle/AqxwTx6owSvMk6Su9)
- - [Request Pytorch Checkpoint](https://forms.gle/T18o5EKRERcDe2tR6)
 
-## Running the test
- - Use TorchScript
-```
-test_model = torch.jit.load('./jit_traced_torch_model_name.pt', map_location='cpu')
-sample_data = torch.randn(1, 3, 512, 512) # (1, channel, width, height)
-print(test_model(sample_data))
-``` 
- - pytorch
-
-
-
-## Quick Start Guide (train)
-```
-python train_supervised.py
-```
 ## Baseline Results - Food Recognition
 | Pretrained Model | Accuracy | Loss      | epoch | note                                    |
 |------------------|----------|-----------|-------|-----------------------------------------|
@@ -73,10 +89,10 @@ python train_supervised.py
 | DENSENET121      | -        | -    | -     | poor accuracy        | INGD_V1 (private)                | 58           |
 
 ## Stage2 Result - Ingredient Recognition
-| Pretrained Model | Accuracy | Loss | epoch | note          | dataset           | num of class |
-|------------------|----------|------|-------|---------------|-------------------|--------------|
-| RESNET152        | 83.03    | 0.71 | 40    |               | INGD_V2 (private) | 238          |
-| MOBILENET V2     |          |      |       | comming soon! | INGD_V2 (private) | 238          |
+| Pretrained Model | Accuracy | Loss | epoch | note            | dataset           | num of class |
+|------------------|----------|------|-------|-----------------|-------------------|--------------|
+| RESNET152        | 83.03    | 0.71 | 40    | now available!  | INGD_V2 (private) | 238          |
+| MOBILENET V2     |          |      |       | comming soon!   | INGD_V2 (private) | 238          |
 
 
 
