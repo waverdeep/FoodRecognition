@@ -17,8 +17,10 @@ class INGDDataset(Dataset):
         if mode == 'train':
             self.image_transforms = transforms.Compose(
                 [
+                    transforms.Resize(640),
                     transforms.RandomResizedCrop(crop_size),
                     transforms.RandomHorizontalFlip(),
+                    transforms.RandomVerticalFlip(),
                     transforms.RandomRotation(degrees=(0, 360)),
                     transforms.ToTensor(),
                     transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),

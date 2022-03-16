@@ -41,7 +41,7 @@ def make_target(speaker_id, speaker_dict):
     return targets
 
 
-def save_checkpoint(config, model, optimizer, loss, epoch, format_logger, mode="best", date=""):
+def save_checkpoint(config, model, optimizer, loss, epoch, mode="best", date=""):
     if mode == "best":
         file_path = os.path.join(config['checkpoint_save_directory_path'],
                                  config['checkpoint_file_name'] + "-model-best-{}.pt".format(date))
@@ -50,4 +50,4 @@ def save_checkpoint(config, model, optimizer, loss, epoch, format_logger, mode="
         "model_state_dict": model.state_dict(),
         "optimizer_state_dict": optimizer.state_dict(),
         "epoch": epoch, "loss": loss}, file_path)
-    format_logger.info("saved best checkpoint ... ")
+    print("saved best checkpoint ... ")
