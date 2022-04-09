@@ -28,6 +28,14 @@ matplotlib~=3.1.2
 ```
 pip install -r requirements.txt
 ```
+ - If you only try inference,
+```
+torch~=1.9.1
+torchvision~=0.10.1
+Pillow~=7.0.0
+natsort~=7.0.1
+numpy~=1.18.1
+```
 
 ## How can I request Checkpoint?
 If you respond to GoogleForms, we will share the download link within a few days. 
