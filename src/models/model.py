@@ -21,6 +21,8 @@ def load_model(config, checkpoint_path=None):
         network = model_baseline.SqueezeNet10Combine
     elif model_name == 'EfficientNetB4Combine':
         network = model_baseline.EfficientNetB4Combine
+    elif model_name == 'MobileNetV3LargeCombine':
+        network = model_baseline.MobileNetV3LargeCombine
 
     model = network(
         last_node=config['last_node'],

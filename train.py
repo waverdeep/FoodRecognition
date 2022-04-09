@@ -17,7 +17,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 def main():
     parser = argparse.ArgumentParser(description='waverdeep - Food Recognition')
     parser.add_argument("--configuration", required=False,
-                        default='./config/config-ResNET152Combine-INGD_V2.json')
+                        default='./config/config-MobileNetV3LargeCombine-INGD_V2.json')
     args = parser.parse_args()
     now = train_tool.setup_timestamp()
 

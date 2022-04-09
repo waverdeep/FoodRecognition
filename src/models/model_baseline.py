@@ -159,6 +159,40 @@ class MobileNetV2Combine(nn.Module):
         return out
 
 
+class MobileNetV3LargeCombine(nn.Module):
+    def __init__(self, last_node=960, num_classes=10):
+        super(MobileNetV3LargeCombine, self).__init__()
+        self.feature_extract_network = nn.Sequential(
+            collections.OrderedDict(
+                [
+                    ("feature_extract_layer", vision_model.mobilenet_v3_large(pretrained=True).features),
+                ]
+            )
+        )
+
+        self.post_network = nn.Sequential(
+            collections.OrderedDict(
+                [
+                    ("avg_pool", nn.AdaptiveAvgPool2d((1, 1))),
+                    ("flatten_layer", nn.Flatten()),
+                    ("post_layer01", nn.Linear(last_node, 1024)),
+                    ("relu01", nn.ReLU()),
+                    ("dropout01", nn.Dropout(0.5)),
+                    ("post_layer02", nn.Linear(1024, 1024)),
+                    ("relu02", nn.ReLU()),
+                    ("dropout01", nn.Dropout(0.5)),
+                    ("post_layer03", nn.Linear(1024, num_classes)),
+
+                ]
+            )
+        )
+
+    def forward(self, x):
+        out = self.feature_extract_network(x)
+        out = self.post_network(out)
+        return out
+
+
 class DenseNet121Combine(nn.Module):
     def __init__(self, last_node=262144, num_classes=10):
         super(DenseNet121Combine, self).__init__()
@@ -232,9 +266,9 @@ class EfficientNetB4Combine(nn.Module):
 
 
 if __name__ == '__main__':
-    # sample_data = torch.randn(2, 3, 512, 512).cuda()
-    # test_model = EfficientNetB4Combine().cuda()
-    # print(test_model(sample_data).size())
+    sample_data = torch.randn(2, 3, 512, 512).cuda()
+    test_model = MobileNetV3LargeCombine().cuda()
+    print(test_model(sample_data).size())
     # sample_data = torch.randn(8, 3, 512, 512)
     # test_model = ResNET50Combine()
     # sample_out = test_model(sample_data)
@@ -250,11 +284,11 @@ if __name__ == '__main__':
     # _, predicted = torch.max(sample_out.data, 1)
     # print(predicted)
 
-    model = ResNET152Combine(num_classes=256)
-    checkpoint = torch.load('../../checkpoint/ResNET152Combine-INGD_V2-model-best-2022_3_1_6_47_27.pt', map_location='cpu')
-    model.load_state_dict(checkpoint['model_state_dict'])
-    model.eval()
-    sample_data = torch.randn(2, 3, 512, 512)
-
-    traced_script_module = torch.jit.trace(model, sample_data)
-    traced_script_module.save('../../traced_res152_model.pt')
+    # model = ResNET152Combine(num_classes=256)
+    # checkpoint = torch.load('../../checkpoint/ResNET152Combine-INGD_V2-model-best-2022_3_1_6_47_27.pt', map_location='cpu')
+    # model.load_state_dict(checkpoint['model_state_dict'])
+    # model.eval()
+    # sample_data = torch.randn(2, 3, 512, 512)
+    #
+    # traced_script_module = torch.jit.trace(model, sample_data)
+    # traced_script_module.save('../../traced_res152_model.pt')
